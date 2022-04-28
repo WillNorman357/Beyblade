@@ -1244,7 +1244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &522394545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2299,6 +2299,7 @@ MonoBehaviour:
     type: 3}
   scoreTextMesh: {fileID: 1124675917}
   inputTextMesh: {fileID: 129137325}
+  inputFieldClass: {fileID: 1395892612}
   inputObject: {fileID: 1242111955}
 --- !u!1 &961267056 stripped
 GameObject:
@@ -4066,7 +4067,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: be065a09105e7964691d80a720a644cd,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 43.867218
+      value: 199.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: be065a09105e7964691d80a720a644cd,
         type: 3}

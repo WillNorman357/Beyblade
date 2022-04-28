@@ -6,9 +6,9 @@ using TMPro;
 
 public class BladeController : MonoBehaviour
 {
-    BladeSettings bSet;
+    public BladeSettings bSet;
 
-    float health;
+    public float health;
     int smallHitCount;
 
     Rigidbody rb;
@@ -57,6 +57,11 @@ public class BladeController : MonoBehaviour
         GetComponentInChildren<MeshRenderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
     }
 
+    public void SetHealth()
+    {
+        health = Random.Range(bSet.maxHealth - bSet.healthRange, bSet.maxHealth + bSet.healthRange);
+    }
+
     public void EnableBlade()
     {
         rb.constraints = RigidbodyConstraints.None;
@@ -64,7 +69,7 @@ public class BladeController : MonoBehaviour
 
         rb.useGravity = true;
 
-        Vector3 direction = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
+        Vector3 direction = new Vector3(Random.Range(-10f, 10f) , Random.Range(-10f, 10f), Random.Range(-10f, 10f));
         rb.AddForce(direction.normalized * 3, ForceMode.Impulse);
     }
 

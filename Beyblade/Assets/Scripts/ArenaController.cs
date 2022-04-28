@@ -19,11 +19,14 @@ public class ArenaController : MonoBehaviour
     [SerializeField] GameObject bladeObject;
     BladeController[] bladeControllers;
 
+    //List<BladeController> bladeControllers = new List<BladeController>();
+
     int bladesNum;
     int bladesIndex = 0;
 
     [SerializeField] TextMeshProUGUI scoreTextMesh;
     [SerializeField] TextMeshProUGUI inputTextMesh;
+    [SerializeField] TMP_InputField inputFieldClass;
     [SerializeField] GameObject inputObject;
 
     bool gotBladeNum = false;
@@ -37,7 +40,29 @@ public class ArenaController : MonoBehaviour
 
         Time.timeScale = 0f;
 
+
+        SpawnPoint[] tempPoints = points.GetComponentsInChildren<SpawnPoint>();
+        spawnPoints = new SpawnPoint[tempPoints.Length];
+
+        List<int> nums = new List<int>();
+        int tempNum = 0;
+        for (int i = 0; i < tempPoints.Length; i++)
+        {
+            nums.Add(tempNum);
+            tempNum++;
+        }
+
+        for (int i = 0; i < tempPoints.Length; i++)
+        {
+            /*
+            int tempIndex = nums[Random.Range(0, nums.Count)];
+            spawnPoints[i] = tempPoints[tempIndex];
+            nums.RemoveAt(tempIndex);
+            */
+        }
+
         spawnPoints = points.GetComponentsInChildren<SpawnPoint>();
+        bladeControllers = new BladeController[spawnPoints.Length];
     }
 
     public int ResetSmallHitCount
@@ -62,11 +87,22 @@ public class ArenaController : MonoBehaviour
         {
             Time.timeScale = 1f;
 
-            BladeController[] bladeControllers = FindObjectsOfType<BladeController>();
+            BladeController[] bladeControllers1 = FindObjectsOfType<BladeController>();
 
-            foreach (BladeController item in bladeControllers)
+            foreach (BladeController item in bladeControllers1)
             {
                 item.EnableBlade();
+                item.SetHealth();
+            }
+
+            inputObject.SetActive(false);
+        }
+
+        if(inputObject.activeSelf == true)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                SpawnBlade();
             }
         }
 
@@ -83,14 +119,19 @@ public class ArenaController : MonoBehaviour
 
     public void InputText()
     {
-        if(gotBladeNum == false)
-        {          
-            SpawnBlades();
-            gotBladeNum = true;
-            scoreTextMesh.text = "";
-        }
-        else if(bladesSpawned == false)
+        
+        if(bladesSpawned == false)
         {
+            //if(bladesIndex > 0)
+                //bladeControllers[bladesIndex-1].textMesh.text = inputTextMesh.text;
+
+            SpawnBlade();
+            //scoreTextMesh.text = "";
+            //gotBladeNum = true;
+        }
+        else
+        {
+            /*
             bladeControllers[bladesIndex].textMesh.text = inputTextMesh.text;
             bladesIndex++;
             inputTextMesh.text = "";
@@ -99,6 +140,7 @@ public class ArenaController : MonoBehaviour
             {
                 inputObject.SetActive(false);
             }
+            */
         }
 
         inputTextMesh.text = "";
@@ -111,13 +153,30 @@ public class ArenaController : MonoBehaviour
         scoreTextMesh.text = bladesNum.ToString();
     }
 
-    void SpawnBlades()
+    void SpawnBlade()
     {
-        bladeControllers = new BladeController[bladesNum];
-
-        for (int i = 0; i < bladeControllers.Length; i++)
+        
+        if (bladesIndex >= spawnPoints.Length)
         {
-            bladeControllers[i] = Instantiate(bladeObject, spawnPoints[i].transform.position, Quaternion.identity).GetComponent<BladeController>();
+            return;
+        }
+        else
+        {
+            //bladeControllers.Add(Instantiate<GameObject>(bladeObject, spawnPoints[bladesIndex].transform.position, Quaternion.identity).GetComponent<BladeController>());
+            //bladeControllers[bladesIndex].textMesh.text = inputTextMesh.text;
+
+            bladeControllers[bladesIndex] = Instantiate<GameObject>(bladeObject, spawnPoints[bladesIndex].transform.position, Quaternion.identity).GetComponent<BladeController>();
+            //bladeControllers[bladesIndex].textMesh.text = inputTextMesh.text;
+
+            GiveBladeName();
         }
     }
+
+    void GiveBladeName()
+    {
+        bladeControllers[bladesIndex].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = inputTextMesh.text;
+        inputFieldClass.text = "";
+        bladesIndex++;
+    }
+
 }
