@@ -34,6 +34,7 @@ public class ArenaController : MonoBehaviour
 
     private void Awake()
     {
+        
         radius = GetComponent<SphereCollider>().radius;
         instance = this;
         currentHitCount = Random.Range(minSmallHit, maxSmallHit);
@@ -71,6 +72,7 @@ public class ArenaController : MonoBehaviour
         {
             if(resetCount <= 0)
             {
+                
                 currentHitCount = Random.Range(minSmallHit, maxSmallHit);
                 resetCount = 2;
             }
@@ -86,13 +88,14 @@ public class ArenaController : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             Time.timeScale = 1f;
+            
 
             BladeController[] bladeControllers1 = FindObjectsOfType<BladeController>();
 
             foreach (BladeController item in bladeControllers1)
             {
                 item.EnableBlade();
-                item.SetHealth();
+                //item.SetHealth();
             }
 
             inputObject.SetActive(false);
