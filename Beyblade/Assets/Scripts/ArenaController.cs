@@ -85,9 +85,10 @@ public class ArenaController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && bladesSpawned == false)
         {
             Time.timeScale = 1f;
+            bladesSpawned = true;
             
 
             BladeController[] bladeControllers1 = FindObjectsOfType<BladeController>();
