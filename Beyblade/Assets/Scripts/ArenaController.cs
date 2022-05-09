@@ -27,6 +27,7 @@ public class ArenaController : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreTextMesh;
     [SerializeField] TextMeshProUGUI inputTextMesh;
     [SerializeField] TMP_InputField inputFieldClass;
+    [SerializeField] TextMeshProUGUI peopleTextMesh;
     [SerializeField] GameObject inputObject;
 
     bool gotBladeNum = false;
@@ -179,6 +180,7 @@ public class ArenaController : MonoBehaviour
     void GiveBladeName()
     {
         bladeControllers[bladesIndex].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = inputTextMesh.text;
+        peopleTextMesh.text = peopleTextMesh.text + "\n" + inputTextMesh.text;
         inputFieldClass.text = "";
         bladesIndex++;
     }

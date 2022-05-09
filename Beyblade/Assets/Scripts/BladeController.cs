@@ -135,7 +135,6 @@ public class BladeController : MonoBehaviour
         if(collision.gameObject.tag == "Blade")
         {
             timer += Time.deltaTime;
-            Debug.Log(timer); 
 
             if(timer >= bSet.stayTime)
             {
