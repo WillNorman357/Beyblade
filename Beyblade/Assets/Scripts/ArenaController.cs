@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class ArenaController : MonoBehaviour
 {
@@ -55,15 +56,14 @@ public class ArenaController : MonoBehaviour
         }
 
         for (int i = 0; i < tempPoints.Length; i++)
-        {
-            /*
+        {           
             int tempIndex = nums[Random.Range(0, nums.Count)];
             spawnPoints[i] = tempPoints[tempIndex];
-            nums.RemoveAt(tempIndex);
-            */
+            nums.Remove(tempIndex);          
         }
 
-        spawnPoints = points.GetComponentsInChildren<SpawnPoint>();
+
+        //spawnPoints = points.GetComponentsInChildren<SpawnPoint>();
         bladeControllers = new BladeController[spawnPoints.Length];
     }
 
@@ -183,6 +183,31 @@ public class ArenaController : MonoBehaviour
         peopleTextMesh.text = peopleTextMesh.text + "\n" + inputTextMesh.text;
         inputFieldClass.text = "";
         bladesIndex++;
+    }
+
+    public void UseNameFile()
+    {
+        inputTextMesh.text = "Poop";
+
+        
+        string BBnames = Resources.Load<TextAsset>("Names").ToString();
+
+        List<char> tempChars = new List<char>();
+
+        for (int i = 0; i < BBnames.Length; i++)
+        {
+            if(BBnames[i] == '/')
+            {
+                inputFieldClass.text = new string(tempChars.ToArray());
+                SpawnBlade();
+                tempChars.Clear();
+            }
+            else
+            {
+                tempChars.Add(BBnames[i]);
+            }           
+        }
+        
     }
 
 }

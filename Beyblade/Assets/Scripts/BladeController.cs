@@ -109,7 +109,6 @@ public class BladeController : MonoBehaviour
             if (smallHitCount <= 0)
             {
                 smallHitCount = ArenaController.instance.ResetSmallHitCount;
-                Debug.Log(smallHitCount);
                 TakeDamage(bSet.bladeDmg);
                 rb.AddForce(direction.normalized * bSet.bladeForce * RelativeSpeed, ForceMode.Impulse);
             }
