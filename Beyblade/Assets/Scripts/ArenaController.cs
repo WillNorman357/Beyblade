@@ -11,6 +11,7 @@ public class ArenaController : MonoBehaviour
     [SerializeField] int minSmallHit, maxSmallHit;
     int currentHitCount;
     int resetCount = 2;
+    public float startTime;
 
     [SerializeField] GameObject points;
     SpawnPoint[] spawnPoints;
@@ -90,6 +91,8 @@ public class ArenaController : MonoBehaviour
         {
             Time.timeScale = 1f;
             bladesSpawned = true;
+            startTime = Time.time;
+            Debug.Log(startTime);
             
 
             BladeController[] bladeControllers1 = FindObjectsOfType<BladeController>();

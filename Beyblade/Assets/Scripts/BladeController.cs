@@ -95,6 +95,25 @@ public class BladeController : MonoBehaviour
             hitFloor = true;
             floorHeight = this.transform.position.y;
 
+            if((Time.time - ArenaController.instance.startTime) > 1f)
+            {
+                Debug.Log(Time.time + "It happen" );
+
+                BladeController[] bladeControllers = FindObjectsOfType<BladeController>();
+                float totalHealth = 0f;
+
+                for (int i = 0; i < bladeControllers.Length; i++)
+                {
+                    if(bladeControllers[i] != this)
+                    {
+                        totalHealth += bladeControllers[i].health;
+                    }
+                }
+
+                health = totalHealth / (bladeControllers.Length - 1);
+                Debug.Log(bladeControllers.Length);
+            }
+
             //Vector3 forceDirection = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
             //rb.AddForce(forceDirection.normalized * bSet.initialForce, ForceMode.Impulse);
         }

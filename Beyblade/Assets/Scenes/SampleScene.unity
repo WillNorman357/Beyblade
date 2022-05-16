@@ -2866,6 +2866,7 @@ MonoBehaviour:
   radius: 0
   minSmallHit: 2
   maxSmallHit: 4
+  startTime: 0
   points: {fileID: 1494198945}
   bladeObject: {fileID: 3435260945261528725, guid: ae8cc75c43038b54f8b5ab3949181841,
     type: 3}
