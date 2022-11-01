@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System.Linq;
+using Random = UnityEngine.Random;
 
 public class ArenaController : MonoBehaviour
 {
@@ -190,25 +193,24 @@ public class ArenaController : MonoBehaviour
 
     public void UseNameFile()
     {
-        inputTextMesh.text = "Poop";
-
+        inputTextMesh.text = "";
         
-        string BBnames = Resources.Load<TextAsset>("Names").ToString();
-
-        List<char> tempChars = new List<char>();
-
-        for (int i = 0; i < BBnames.Length; i++)
+        string namePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        string namesFile = namePath + "/names.txt";
+        
+        if (!File.Exists(namesFile))
         {
-            if(BBnames[i] == '/')
-            {
-                inputFieldClass.text = new string(tempChars.ToArray());
-                SpawnBlade();
-                tempChars.Clear();
-            }
-            else
-            {
-                tempChars.Add(BBnames[i]);
-            }           
+            inputFieldClass.text = "No names file found!";
+            return;
+        }
+        
+        string[] lines = File.ReadAllLines(namesFile);
+        List<string> players = lines.Where(line => !line.StartsWith("#") && !line.EndsWith("#")).ToList();
+        
+        foreach (string player in players)
+        {
+            inputFieldClass.text = player;
+            SpawnBlade();
         }
         
     }
